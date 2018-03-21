@@ -1,7 +1,5 @@
-
 import re
 import os
-
 
 path_doc ='Docs'
 path_data = './Data'
@@ -29,26 +27,23 @@ for i in allfiles:
 
 
 dic_file = os.path.join(path_data, 'dictionary.txt')
-inverted_index_file = os.path.join(path_data,'inverted_index.pickle')
 
 with open(dic_file , 'w') as f:
 	for word in inverted_index.keys():
 		f.write(word + '\n')
 
 
+check = input("Nhap chuoi can kiem tra: ")
+check.lower()
+check = re.sub(r"[^A-Za-z0-9]+", ' ', check)
+words_check = check.split()
 
-loop = True
-
-while loop:
-	check = input("Nhap: exit() de thoat\nNhap tu can tim kiem: ")
-	if check == 'exit()':
-		break
-	check.lower()
-	if inverted_index.get(check, None) is None:
-		print("khong co tu can tim\n")
+for i in words_check:
+	if inverted_index.get(i, None) is None:
+		print("Tu: " + i +" khong xuat hien\n")
 	else:
-		for i in inverted_index.get(check):
-			print( i + "\n")
-
+		print("Tu: " + i + " xuat hien o: \n")
+		for ii in inverted_index.get(i):
+			print(ii + "\n")
 
 
